@@ -1,0 +1,31 @@
+{
+  "name": "gabble",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnnyBoomerang/gabble.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JohnnyBoomerang/gabble/issues"
+  },
+  "homepage": "https://github.com/JohnnyBoomerang/gabble#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "express-sessions": "^1.0.6",
+    "express-validator": "^3.2.0",
+    "faker": "^4.1.0",
+    "mustache-express": "^1.2.5",
+    "parseurl": "^1.3.1",
+    "pg": "^6.4.0",
+    "sequelize": "^4.2.1"
+  }
+}

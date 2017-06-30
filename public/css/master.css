@@ -1,0 +1,13 @@
+/*.loginLabels {
+  display: block;
+}
+.loginInputs {
+  display: block;
+}*/
+.loginDivs {
+  display: flex;
+  flex-direction: column;
+}
+.loginLinks {
+  display: flex;
+}
