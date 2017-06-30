@@ -20,13 +20,15 @@ app.listen(3000, function(){
 })
 
 
-// app.set('trust proxy', 1) // trust first proxy
+app.set('trust proxy', 1) // trust first proxy
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
   cookie: { secure: true }
 }))
+
+///////////////////////////TODO homepage TODO////////////////////////
 
 // for (let i = 0; i < 5; i++) {
 //   const user = models.User.build({
@@ -48,6 +50,10 @@ app.get('/', function (req, res) {
     res.redirect('/login')
   }
 })
+
+
+
+///////////////////////////TODO login TODO////////////////////////
 
 app.get('/login', function(req, res) {
   res.render('login')
@@ -77,19 +83,33 @@ app.post('/login', function (req, res) {
   })
 })
 
+///////////////////////////TODO signup TODO////////////////////////
 
-
-
-
-
-app.post('/', function (req, res){
-
+app.get('/signup', function (req, res) {
+  res.render('signup')
 })
-// app.get('/', function(req, res){
-//
-//   models.User.findAll().then(function(users){
-//     res.render("index", {
-//       users: users
-//     });
-//   })
-// })
+
+app.post('/signup', function (req, res) {
+  let newUser = req.body.username;
+  let newPass = req.body.password
+  let newPassConfirm = req.body.passwordConfirm
+
+  if (newPass === newPassConfirm) {
+    let user = models.User.build({
+
+        username: newUser,
+        password: newPass
+
+    })
+    user.save()
+    .then( function(user){
+      sess = req.session
+      res.redirect('/')
+
+    })
+  } else {
+    res.redirect('/signup')
+  }
+})
+
+///////////////////////////TODO create a new gab TODO////////////////////////
