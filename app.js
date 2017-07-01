@@ -24,8 +24,7 @@ app.set('trust proxy', 1) // trust first proxy
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
+  saveUninitialized: true
 }))
 
 ///////////////////////////TODO homepage TODO////////////////////////
@@ -40,11 +39,15 @@ app.use(session({
 //   user.save();
 // }
 
-let sess
+
+var sess
 
 app.get('/', function (req, res) {
-  if (sess) {
-    res.render('gabble')
+  sess = req.session
+  if (sess.username) {
+    res.render('gabble', {
+      username: sess.username
+    })
   }
   else {
     res.redirect('/login')
@@ -56,37 +59,35 @@ app.get('/', function (req, res) {
 ///////////////////////////TODO login TODO////////////////////////
 
 app.get('/login', function(req, res) {
-  res.render('login')
+  return res.render('login')
 })
 
 app.post('/login', function (req, res) {
+  sess = req.session
 
   let postUser = req.body.username;
   let postPass = req.body.password;
 
-  const user = models.User.findAll({
+  const user = models.User.findOne({
     where: {
       username: postUser,
       password: postPass
     }
   }).then( function (user) {
-    for (let i = 0; i < user.length; i++) {
-      if (user[i].username === postUser && user[i].password === postPass) {
-        sess = req.session
-        console.log("session" + sess)
-        res.redirect('/')
-      } else {
-        res.redirect('/login')
-      }
+    if (user) {
+      sess.username = user.username
+      sess.password = user.password
+      return res.redirect('/' )
+    } else {
+      return res.redirect('/login')
     }
-
   })
 })
 
 ///////////////////////////TODO signup TODO////////////////////////
 
 app.get('/signup', function (req, res) {
-  res.render('signup')
+  return res.render('signup')
 })
 
 app.post('/signup', function (req, res) {
@@ -104,12 +105,39 @@ app.post('/signup', function (req, res) {
     user.save()
     .then( function(user){
       sess = req.session
-      res.redirect('/')
+      sess.username = user.username
+      sess.password = user.password
+      return res.redirect('/')
 
     })
   } else {
-    res.redirect('/signup')
+    return res.redirect('/signup')
   }
 })
 
 ///////////////////////////TODO create a new gab TODO////////////////////////
+
+app.get('/create', function(req, res){
+  // return res.render('create', {
+  //   username: sess.username
+  // })
+  sess = req.session
+  if (sess.username) {
+    return res.render('create', {
+      username: sess.username
+    })
+  }
+  else {
+    return res.redirect('/login')
+  }
+})
+
+///////////////////////////TODO logout TODO////////////////////////
+app.post('/logout', function(req, res) {
+  sess = req.session
+  // req.session.username = {};
+  sess.username = ''
+
+
+  return res.redirect('/login')
+})

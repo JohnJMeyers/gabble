@@ -1,13 +1,12 @@
-/*.loginLabels {
-  display: block;
-}
-.loginInputs {
-  display: block;
-}*/
-.loginDivs {
+.links {
   display: flex;
-  flex-direction: column;
 }
-.loginLinks {
-  display: flex;
+a {
+  padding: 1%;
+}
+span {
+  padding: 1%;
+}
+form.logout {
+  padding: 1%;
 }
