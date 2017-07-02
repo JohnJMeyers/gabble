@@ -18,11 +18,14 @@
     <br>
     <form class="" action="/create" method="post">
       <div class="">
-        <textarea name="createArea" rows="8" cols="80"></textarea>
+        <textarea name="createArea" rows="8" cols="80">{{gab.messages}}</textarea>
       </div>
       <div class="">
         <input type="submit" name="createSubmit" value="Save gab">
       </div>
     </form>
+    {{#errors}}
+          <li>{{message}}</li>
+        {{/errors}}
   </body>
 </html>

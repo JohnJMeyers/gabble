@@ -2,7 +2,14 @@
 module.exports = function(sequelize, DataTypes) {
   var Gab = sequelize.define('Gab', {
     likes: DataTypes.INTEGER,
-    messages: DataTypes.TEXT
+    messages: {
+    type: DataTypes.TEXT,
+    validate: {
+      notEmpty: {
+        msg: "Can't be empty"
+      }
+    }
+  }
   }, {
     classMethods: {
       associate: function(models) {

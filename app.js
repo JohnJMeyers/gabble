@@ -45,9 +45,13 @@ var sess
 app.get('/', function (req, res) {
   sess = req.session
   if (sess.username) {
-    res.render('gabble', {
-      username: sess.username
+    models.Gab.findAll().then( function(gabs){
+      res.render('gabble', {
+        username: sess.username,
+        gabs: gabs
+      })
     })
+
   }
   else {
     res.redirect('/login')
@@ -130,6 +134,23 @@ app.get('/create', function(req, res){
   else {
     return res.redirect('/login')
   }
+})
+
+app.post('/create', function(req, res){
+  const gab = models.Gab.build({
+    messages: req.body.createArea
+  })
+  gab.save()
+    .then(function(){
+      res.redirect("/")
+    })
+    .catch(function(bigErrorThing){
+
+      res.render("create", {
+        gab: gab,
+        errors: bigErrorThing.errors
+      })
+    })
 })
 
 ///////////////////////////TODO logout TODO////////////////////////
