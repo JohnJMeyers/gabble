@@ -15,8 +15,22 @@
       </form>
     </div>
     {{#gabs}}
-    <div class="">
-      {{messages}}
+    <div class="gabBox">
+      <div class="gabText">
+        <div class="gabName">
+          <p class='strong'><strong>{{user_id}}:</strong></p>
+          <p>{{messages}}</p>
+        </div>
+        <div class="gabDate">
+          {{createdAt}}
+          {{likes}}
+        </div>
+      </div>
+      <div class="gabDelete">
+        <form class="" action="/delete" method="post">
+          <button type="submit" name="id" value="{{id}}">DELETE</button>
+        </form>
+      </div>
     </div>
     {{/gabs}}
   </body>

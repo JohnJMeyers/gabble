@@ -2,6 +2,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Gab = sequelize.define('Gab', {
     likes: DataTypes.INTEGER,
+    user_id: DataTypes.STRING,
     messages: {
     type: DataTypes.TEXT,
     validate: {
@@ -13,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        models.Gab.belongsTo(models.User)
       }
     }
   });
